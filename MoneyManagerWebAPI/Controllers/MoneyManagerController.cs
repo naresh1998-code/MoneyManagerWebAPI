@@ -4,9 +4,9 @@ namespace MoneyManagerWebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AccountsController : ControllerBase
+public class MoneyManagerController : ControllerBase
 {
-    public AccountsController(ILogger)
+    public MoneyManagerController(ILogger)
     {
         
     }
