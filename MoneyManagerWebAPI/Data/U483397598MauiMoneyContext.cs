@@ -71,20 +71,20 @@ public partial class U483397598MauiMoneyContext : DbContext
                 .HasConstraintName("user_id");
         });
 
-        //modelBuilder.Entity<AccountType>(entity =>
-        //{
-        //    entity.HasKey(e => e.Id).HasName("PRIMARY");
+        modelBuilder.Entity<AccountType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-        //    entity.ToTable("account_type");
+            entity.ToTable("account_type");
 
-        //    entity.Property(e => e.Id)
-        //        .HasColumnType("int(10) unsigned")
-        //        .HasColumnName("id");
-        //    entity.Property(e => e.AccountTypes)
-        //        .HasMaxLength(45)
-        //        .HasDefaultValueSql("'NULL'")
-        //        .HasColumnName("account_types");
-        //});
+            entity.Property(e => e.Id)
+                .HasColumnType("int(10) unsigned")
+                .HasColumnName("id");
+            entity.Property(e => e.AccountTypes)
+                .HasMaxLength(45)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnName("account_types");
+        });
 
         //modelBuilder.Entity<AspNetRole>(entity =>
         //{
@@ -267,26 +267,26 @@ public partial class U483397598MauiMoneyContext : DbContext
                 .HasConstraintName("user");
         });
 
-        //modelBuilder.Entity<User>(entity =>
-        //{
-        //    entity.HasKey(e => e.IdUsers).HasName("PRIMARY");
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.IdUsers).HasName("PRIMARY");
 
-        //    entity.ToTable("users");
+            entity.ToTable("users");
 
-        //    entity.HasIndex(e => e.NameUser, "name_user_UNIQUE").IsUnique();
+            entity.HasIndex(e => e.NameUser, "name_user_UNIQUE").IsUnique();
 
-        //    entity.Property(e => e.IdUsers)
-        //        .HasColumnType("int(11)")
-        //        .HasColumnName("id_users");
-        //    entity.Property(e => e.NameUser)
-        //        .HasMaxLength(45)
-        //        .HasDefaultValueSql("'NULL'")
-        //        .HasColumnName("name_user");
-        //    entity.Property(e => e.PasswordUser)
-        //        .HasMaxLength(32)
-        //        .HasDefaultValueSql("'NULL'")
-        //        .HasColumnName("password_user");
-        //});
+            entity.Property(e => e.IdUsers)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_users");
+            entity.Property(e => e.NameUser)
+                .HasMaxLength(45)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnName("name_user");
+            entity.Property(e => e.PasswordUser)
+                .HasMaxLength(32)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnName("password_user");
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using MoneyManagerWebAPI.Models;
 using MoneyManagerWebAPI.Data;
 using Microsoft.AspNetCore.Identity;
 
@@ -44,6 +43,8 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+// Add memory caching feature to optimize  API
+builder.Services.AddMemoryCache();
 
 
 var app = builder.Build();
@@ -57,7 +58,7 @@ if (app.Environment.IsDevelopment())
 
 
 //map identity user 
-app.MapIdentityApi<AspNetUser>();
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
