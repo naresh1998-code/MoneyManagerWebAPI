@@ -32,7 +32,7 @@ public class MoneyManagerController : ControllerBase
         _cache = cache;
     }
 
-    [HttpPost]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountType>?>> GetAccountTypes()
     {
         var CacheKey = "accountType";
