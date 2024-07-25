@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace MoneyManagerWebAPI.Models;
 
-public partial class Account
+public partial class NewAccount
 {
-    public int AccountId { get; set; }
-
-    public string UserName { get; set; } = null!;
+    public int? AccountId { get; set; }
 
     public string AccountType { get; set; } = null!;
 

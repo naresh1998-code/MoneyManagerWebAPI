@@ -5,11 +5,9 @@ namespace MoneyManagerWebAPI.Models;
 
 public partial class Category
 {
-    public int Id { get; set; }
+    public int CategoryId { get; set; }
 
-    public string? Category1 { get; set; }
+    public string UserName { get; set; } = null!;
 
-    public int UserId { get; set; }
-
-    public virtual User User { get; set; } = null!;
+    public string Category1 { get; set; } = null!;
 }

@@ -1,10 +1,11 @@
-﻿namespace MoneyManagerWebAPI.Models
-{
-    public class AccountType
-    {
-        public int Id { get; set; }
-        public string AccountTypes { get; set; }
+﻿using System;
+using System.Collections.Generic;
 
-        //private virtual ICollection<AccountType> AccountTypes {  get; set; }
-    }
+namespace MoneyManagerWebAPI.Models;
+
+public partial class AccountType
+{
+    public int Id { get; set; }
+
+    public string? AccountTypes { get; set; }
 }
