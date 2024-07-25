@@ -3,21 +3,15 @@ using System.Collections.Generic;
 
 namespace MoneyManagerWebAPI.Models;
 
-public partial class Transaction
+public partial class NewTransaction
 {
     public int AccountId { get; set; }
-
-    public string UserName { get; set; } = null!;
-
-    public int TransactionId { get; set; }
-
-    public decimal TransactionAmount { get; set; }
 
     public string Category { get; set; } = null!;
 
     public string? Remark { get; set; }
 
+    public decimal TransactionAmount { get; set; }
     public DateTime TransactionTime { get; set; }
 
-    public virtual Account? Account { get; set; }
 }

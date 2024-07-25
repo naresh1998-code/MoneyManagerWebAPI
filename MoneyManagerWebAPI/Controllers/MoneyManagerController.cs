@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace MoneyManagerWebAPI.Controllers;
 
-//[Authorize]  //TODO un-comment this line on deployment
+[Authorize]  //TODO un-comment this line on deployment
 [ApiController]
 [Route("[controller]/[action]")]
 public class MoneyManagerController : ControllerBase
@@ -32,6 +32,7 @@ public class MoneyManagerController : ControllerBase
         _cache = cache;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountType>?>> GetAccountTypes()
     {
@@ -47,7 +48,7 @@ public class MoneyManagerController : ControllerBase
     }
 
 
-    [Authorize]
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Account>?>> GetAccount()
     {
@@ -65,7 +66,7 @@ public class MoneyManagerController : ControllerBase
 
     }
 
-    [Authorize]
+
     [HttpPost]
     public async void AddAccount(NewAccount newAccount)
     {
@@ -85,13 +86,13 @@ public class MoneyManagerController : ControllerBase
     }
 
 
-    [Authorize]
+
     [HttpPatch]
     public void UpdateAccount(NewAccount account)
     {
-        var toBeUpdatedAccount =  _context.Accounts
+        var toBeUpdatedAccount = _context.Accounts
             .FirstOrDefault(at => at.AccountId == account.AccountId && at.UserName == User.Identity!.Name);
-        
+
         if (toBeUpdatedAccount != null)
         {
             toBeUpdatedAccount.AccountName = account.AccountName;
@@ -100,14 +101,12 @@ public class MoneyManagerController : ControllerBase
             toBeUpdatedAccount.BankName = account.BankName;
             toBeUpdatedAccount.Remark = account.Remark;
 
-            //_context.Entry(toBeUpdatedAccount).CurrentValues.SetValues(account);
-            //toBeUpdatedAccount = account;
             _context.SaveChanges();
         }
     }
 
 
-    [Authorize]
+
     [HttpPost]
     public void DeleteAccount(int accountID)
     {
@@ -119,4 +118,60 @@ public class MoneyManagerController : ControllerBase
             _context.SaveChanges();
         }
     }
+
+
+
+    [HttpGet]
+    public async Task<List<Transaction>> GetTransactions(int page = 1, int pageSize = 10)
+    {
+        var transactions = await _context.Transactions.Where(at => at.UserName == User.Identity!.Name).OrderByDescending(at => at.TransactionTime).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+        return transactions;
+    }
+
+    [HttpGet]
+    public async void AddTransaction(NewTransaction newTransaction)
+    {
+        Transaction transaction = new()
+        {
+            AccountId = newTransaction.AccountId,
+            UserName = User.Identity!.Name!,
+            Category = newTransaction.Category,
+            Remark = newTransaction.Remark,
+            TransactionAmount = newTransaction.TransactionAmount,
+            TransactionTime = newTransaction.TransactionTime
+        };
+        await _context.Transactions.AddAsync(transaction);
+        _context.SaveChanges();
+    }
+
+    [HttpGet]
+    public void UpdateTransaction(int transactionID, NewTransaction newTransaction)
+    {
+        var transactionToBeUpdated = _context.Transactions.FirstOrDefault(at =>
+            at.UserName == User.Identity!.Name && at.TransactionId == transactionID);
+        if (transactionToBeUpdated != null)
+        {
+            transactionToBeUpdated.TransactionAmount = newTransaction.TransactionAmount;
+            transactionToBeUpdated.Remark = newTransaction.Remark;
+            transactionToBeUpdated.Category = newTransaction.Category;
+
+            _context.SaveChanges();
+        }
+    }
+
+    [HttpGet]
+    public void DeleteTransaction(int transactionID)
+    {
+        var transactionToBeDeleted = _context.Transactions.FirstOrDefault(at =>
+            at.UserName == User.Identity!.Name && at.TransactionId == transactionID);
+
+        if (transactionToBeDeleted != null)
+        {
+            _context.Transactions.Remove(transactionToBeDeleted);
+            _context.SaveChanges();
+        }
+    }
+
+
 }

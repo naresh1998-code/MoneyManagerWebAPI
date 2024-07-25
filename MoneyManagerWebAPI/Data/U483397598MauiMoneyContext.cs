@@ -229,6 +229,10 @@ public partial class U483397598MauiMoneyContext : DbContext
             entity.Property(e => e.TransactionId)
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("transaction_id");
+            entity.Property(e => e.TransactionAmount)
+                .HasColumnType("decimal")
+                .HasColumnName("transaction_amount" +
+                "");
             entity.Property(e => e.AccountId)
                 .HasColumnType("int(11)")
                 .HasColumnName("account_id");
